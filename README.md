@@ -1,22 +1,21 @@
-# Proyecto Tienda De Prueba
+# Proyecto Tienda De Zapatillas
 
-## Aca Dejo un Ejemplo
+## Proyecto de una tienda
 
-### -
+### Se implementa con:
 
-- uno
-- dos
-- tres
+- React
+- Git
+- Css
+- JavaScript
+- HTML
+
+```
+
+```
 
 ![](public/vite.svg)
 
 ```
 git clone
-```
-
-```javascript
-let name = "pepa";
-const saludar = () => {
-  return "hola" + name;
-};
 ```
