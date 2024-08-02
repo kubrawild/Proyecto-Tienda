@@ -3,13 +3,10 @@ import { createContext, useState } from "react";
 export const CartContext = createContext();
 
 const CartContextProvider = ({ children }) => {
-  const [cart, setCart] = useState([]); // [ {id:1}, {id:5}, {id:3} ] -
-  // quantity 10 - price 5 ---> 50
-  // quantity 3 - price 10 ---> 30
+  const [cart, setCart] = useState(
+    JSON.parse(localStorage.getItem("cart")) || []
+  );
 
-  // sumar todos los subtotales // 80
-
-  // funcion modificar
   const addToCart = (product) => {
     let existe = isInCart(product.id);
     if (existe) {
@@ -25,40 +22,36 @@ const CartContextProvider = ({ children }) => {
         }
       }); // siempre devuelve un array y siempre de la misma longitud
       setCart(newArray);
+      localStorage.setItem("cart", JSON.stringify(newArray));
+      // newArray
     } else {
       setCart([...cart, product]);
+      localStorage.setItem("cart", JSON.stringify([...cart, product]));
     }
   };
 
   const clearCart = () => {
     setCart([]);
+    localStorage.removeItem("cart");
   };
 
   const isInCart = (id) => {
     let existe = cart.some((product) => product.id === id); // true - false
     return existe;
+    // newArr
   };
 
   // una funcion -->
   // eliminar cada producto
 
   const deleteProduct = (id) => {
-    // 2
-    // encontrar ese producto y quitarlo
-    console.log(id);
-    // filter ---> siempre devuelve un nuevo array
-    // retornar un booleano [1, 3, 4, 5] -->
     let newArr = cart.filter((elemento) => elemento.id !== id);
     setCart(newArr);
+    localStorage.setItem("cart", JSON.stringify(newArr));
   };
 
   const getQuantityById = (id) => {
-    // 3
-    // no tenes unididades --> 1
-    // tenes x unidades ---> x unidades
     let productoEncontrado = cart.find((product) => product.id === id);
-    // siempre el metodo find, devuelve el elemento o undefined si no hay coincidencias
-    //  {} ||  undefined
 
     // return productoEncontrado.quantity; // se rompe si es undefined
     return productoEncontrado?.quantity;
